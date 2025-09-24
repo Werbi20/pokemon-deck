@@ -9,6 +9,8 @@ const Navigation = () => {
   const pathname = usePathname()
   const { user, logout } = useLocalAuth()
   const [demoMode, setDemoMode] = useState(false)
+  const [resetting, setResetting] = useState(false)
+  const [resetOk, setResetOk] = useState(false)
 
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
@@ -71,6 +73,31 @@ const Navigation = () => {
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-green-100 text-green-700 border border-green-300 uppercase tracking-wide">Demo</span>
                   )}
                 </div>
+                {demoMode && (
+                  <button
+                    disabled={resetting}
+                    onClick={async () => {
+                      try {
+                        setResetOk(false)
+                        setResetting(true)
+                        const res = await fetch('/api/demo/reset', { method: 'POST', headers: { 'Authorization': `Bearer ${localStorage.getItem('demo-token') || ''}` } })
+                        if (res.ok) {
+                          setResetOk(true)
+                          // leve delay para feedback
+                          setTimeout(() => setResetOk(false), 2500)
+                        }
+                      } catch (e) {
+                        console.error('Erro reset demo', e)
+                      } finally {
+                        setResetting(false)
+                      }
+                    }}
+                    className={`text-xs px-3 py-1 rounded-md border transition-colors ${resetOk ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-700 hover:bg-gray-100 border-gray-300 disabled:opacity-50'}`}
+                    title="Resetar dados mock (decks e partidas)"
+                  >
+                    {resetOk ? 'Resetado!' : (resetting ? 'Reset...' : 'Reset Demo')}
+                  </button>
+                )}
                 <button
                   onClick={logout}
                   className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
