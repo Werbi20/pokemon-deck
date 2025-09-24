@@ -251,3 +251,7 @@ src/
 ---
 
 **Desenvolvido com ❤️ para a comunidade Pokémon TCG**
+
+---
+
+Repositório GitHub: `Werbi20/pokemon-deck`
