@@ -10,7 +10,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "deploy": "firebase deploy"
+    "prefirebase": "npm run build && node scripts/copy-next-to-functions.cjs",
+    "deploy": "npm run prefirebase && firebase deploy"
   },
   "dependencies": {
     "@api/tcgplayer": "file:.api/apis/tcgplayer",
