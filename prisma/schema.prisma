@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String @id @default(cuid())
+  name  String
+  email String? @unique
+  decks Deck[]
+  matches Match[]
+
+  @@map("users")
+}
+
+model Deck {
+  id          String @id @default(cuid())
+  name        String
+  description String?
+  format      String
+  cards       Card[]
+  matches     Match[]
+  userId      String
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("decks")
+}
+
+model Card {
+  id       String @id @default(cuid())
+  name     String
+  imageUrl String
+  code     String
+  quantity Int    @default(1)
+  deckId   String
+  deck     Deck   @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@map("cards")
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  result    String   // "win" ou "lose"
+  date      DateTime @default(now())
+  notes     String?
+  deckId    String
+  deck      Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("matches")
+}

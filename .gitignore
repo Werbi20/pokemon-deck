@@ -1,0 +1,63 @@
+# Dependências
+node_modules/
+
+# Build / artifactos Next.js
+.next/
+out/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ambiente / segredos (NUNCA commitar .env real)
+.env
+.env.local
+.env.*.local
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Cobertura testes
+coverage/
+
+# Prisma
+prisma/migrations/*
+!prisma/migrations/README.md
+
+# Vercel
+.vercel/
+
+# Dados temporários locais
+.data/
+.api/
+
+# Cache diversas ferramentas
+.cache/
+
+# Arquivos gerados
+*.log
+
+# Backups/temporários
+~$*
+*.tmp
+
+# Sistema Windows
+ehthumbs.db
+desktop.ini
+
+# Evitar upload de credenciais Firebase (ajuste se usar service account local)
+firebase-admin-key.json
+
+# NOTA: mantenha env.example versionado para referência de variáveis

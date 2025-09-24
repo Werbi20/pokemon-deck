@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Estilos customizados para cartas Pokémon */
+.pokemon-card {
+  @apply bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105;
+}
+
+.pokemon-card-image {
+  @apply w-full h-48 object-cover;
+}
+
+.pokemon-card-content {
+  @apply p-4;
+}
+
+.pokemon-card-name {
+  @apply text-lg font-bold text-gray-800 mb-2;
+}
+
+.pokemon-card-details {
+  @apply text-sm text-gray-600;
+}
+
+/* Estilos para deck cards */
+.deck-card {
+  @apply bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow;
+}
+
+.deck-card-header {
+  @apply flex justify-between items-start mb-4;
+}
+
+.deck-card-title {
+  @apply text-xl font-bold text-gray-800;
+}
+
+.deck-card-format {
+  @apply px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.deck-card-format.standard {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.deck-card-format.expanded {
+  @apply bg-green-100 text-green-800;
+}
+
+.deck-card-format.limited {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+/* Estilos para botões */
+.btn-primary {
+  @apply bg-pokemon-blue text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 px-6 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600 transition-colors;
+}
+
+.btn-success {
+  @apply bg-green-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors;
+}
