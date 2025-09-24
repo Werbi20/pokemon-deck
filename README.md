@@ -256,6 +256,34 @@ src/
 
 Repositório GitHub: `Werbi20/pokemon-deck`
 
+## ☁️ Deploy no Firebase (Hosting + Functions)
+
+Configuração inicial adicionada (firebase.json, .firebaserc, functions/). Passos:
+
+1. Instale global (opcional) ou use npx:
+```
+npx firebase login
+```
+2. Defina o projeto no `.firebaserc` substituindo `__DEFINA_SEU_PROJETO__` pelo ID do Firebase.
+3. (Opcional) Crie projeto: https://console.firebase.google.com/
+4. Deploy (hosting + functions placeholder):
+```
+npm run build
+npx firebase deploy
+```
+O rewrite atual envia todas as rotas à função `nextServer` (placeholder). Para produção real você pode:
+- Usar `next build` + export estático (caso sirva)
+- Integrar com `@vercel/node` ou usar frameworks como `next-firebase-functions`
+- Ou optar por Vercel para SSR completo.
+
+Estrutura criada:
+```
+firebase.json
+.firebaserc
+functions/index.js (função nextServer)
+functions/package.json
+public/ (assets estáticos)
+```
 ## 🔁 Renomear Deck (Unicidade Garantida)
 
 Ao renomear um deck, o backend agora valida que não existe outro deck do mesmo usuário com o mesmo nome (case insensitive). Se houver conflito a API retorna `409 Conflict`:

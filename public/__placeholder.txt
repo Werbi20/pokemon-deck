@@ -1,0 +1,1 @@
+Arquivos estáticos (imagens, icons, manifest) podem ser colocados aqui.
