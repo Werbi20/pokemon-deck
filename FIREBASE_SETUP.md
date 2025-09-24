@@ -1,3 +1,33 @@
+# Configuração Firebase
+
+Este projeto usa Firebase (Auth / Firestore) no cliente e opção de execução mock quando variáveis não estão definidas.
+
+## Variáveis de Ambiente (Frontend)
+Coloque no arquivo `.env.local` (NÃO commitar `.env.local`):
+
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyD9N3hJVlcYHQg8K5A_D7w4cOHBFjsG2Qc
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=cardhost-b15f4.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=cardhost-b15f4
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=cardhost-b15f4.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=353228490864
+NEXT_PUBLIC_FIREBASE_APP_ID=1:353228490864:web:8c51c1c460c05d7cfa4cb5
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-WRLV9P3D50
+```
+
+Essas chaves públicas podem ficar expostas no frontend (Firebase já considera público). Para segurança adicional (regras de Firestore/Auth), configure regras no console Firebase.
+
+## Medidas de Segurança Recomendadas
+- Restringir domínios autorizados em Authentication > Settings.
+- Regras do Firestore: permitir somente leitura/escrita para usuário autenticado nos seus próprios dados.
+- Usar Cloud Functions para lógica sensível (preços, seed avançado, etc.).
+
+## Execução em Modo Demo
+Se `NEXT_PUBLIC_DEMO_MODE=true` e variáveis Firebase ausentes: a aplicação cai em mocks (`mockData`).
+
+## Deploy
+Para SSR via Firebase Functions, as variáveis públicas devem ser buildadas no bundle. Para variáveis privadas (service account), usar `firebase functions:config:set` (não utilizado ainda neste projeto).
+
 # Configuração do Firebase
 
 ## Passos para configurar o Firebase:
