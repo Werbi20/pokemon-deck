@@ -255,3 +255,24 @@ src/
 ---
 
 Repositório GitHub: `Werbi20/pokemon-deck`
+
+## 🔁 Renomear Deck (Unicidade Garantida)
+
+Ao renomear um deck, o backend agora valida que não existe outro deck do mesmo usuário com o mesmo nome (case insensitive). Se houver conflito a API retorna `409 Conflict`:
+
+Request:
+```
+PUT /api/decks/{id}
+{
+   "name": "Novo Nome", 
+   "description": "...",
+   "format": "Standard",
+   "cards": [...]
+}
+```
+Responses:
+```
+200 { message: "Deck atualizado com sucesso" }
+409 { error: "Já existe outro deck com esse nome." }
+```
+Se o campo `name` não for enviado, o nome atual permanece.

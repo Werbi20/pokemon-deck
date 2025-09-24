@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDeck, updateDeck, deleteDeck } from '@/lib/firestore'
+import { getDeck, updateDeck, deleteDeck, getDecks } from '@/lib/firestore'
 import { withAuth } from '@/lib/authMiddleware'
 
 export async function GET(
@@ -36,6 +36,16 @@ export async function PUT(
     try {
       const body = await req.json()
       const { name, description, format, cards } = body
+
+      // Validar unicidade de nome (case insensitive) entre decks do usuário se name fornecido
+      if (name && typeof name === 'string') {
+        const allDecks = await getDecks(userId)
+        const lower = name.trim().toLowerCase()
+        const conflict = allDecks.find(d => d.id !== params.id && d.name.trim().toLowerCase() === lower)
+        if (conflict) {
+          return NextResponse.json({ error: 'Já existe outro deck com esse nome.' }, { status: 409 })
+        }
+      }
 
       await updateDeck(params.id, userId, {
         name,
