@@ -134,6 +134,21 @@ export const mockMatches: Match[] = [
   }
 ];
 
+// Snapshot inicial para permitir reset
+const __initialState = {
+  decks: JSON.parse(JSON.stringify(mockDecks)),
+  matches: JSON.parse(JSON.stringify(mockMatches))
+}
+
+export function resetMockData() {
+  // Limpa arrays atuais
+  mockDecks.splice(0, mockDecks.length)
+  mockMatches.splice(0, mockMatches.length)
+  // Restaura cópias profundas do snapshot inicial
+  for (const d of __initialState.decks) mockDecks.push({ ...d })
+  for (const m of __initialState.matches) mockMatches.push({ ...m })
+}
+
 // ===== Helpers para geração dinâmica em modo demo =====
 export function addMockMatch(match: Omit<Match, 'id' | 'deck'> & { id?: string }) {
   const id = match.id || `match-${Date.now()}-${Math.random().toString(36).slice(2,8)}`

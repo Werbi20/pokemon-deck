@@ -284,6 +284,21 @@ functions/index.js (função nextServer)
 functions/package.json
 public/ (assets estáticos)
 ```
+
+## 🧪 Endpoints Utilitários
+
+### Demo Reset
+```
+POST /api/demo/reset
+Authorization: Bearer <token-demo>
+Response: { message: "Dados demo resetados" }
+```
+Restaura o estado mock inicial (decks e partidas).
+
+### Healthcheck
+```
+GET /api/health -> { status: "ok", time: "<ISO>" }
+```
 ## 🔁 Renomear Deck (Unicidade Garantida)
 
 Ao renomear um deck, o backend agora valida que não existe outro deck do mesmo usuário com o mesmo nome (case insensitive). Se houver conflito a API retorna `409 Conflict`:
